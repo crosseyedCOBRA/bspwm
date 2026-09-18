@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# Load X resources (colors, dpi, etc) if present
+[ -f "$HOME/.Xresources" ] && xrdb -merge "$HOME/.Xresources"
+
+# Kill/restart helpers so bspwmrc can be re-run without duplicate processes
+pgrep -x sxhkd >/dev/null || sxhkd &
+pgrep -x picom >/dev/null || picom --config "$HOME/.config/picom/picom.conf" &
+pgrep -x dunst >/dev/null || dunst &
+pgrep -x nm-applet >/dev/null || nm-applet &
+
+# Wallpaper (drop an image at ~/Pictures/wallpaper.jpg or change this line)
+command -v feh >/dev/null && [ -f "$HOME/Pictures/wallpaper.jpg" ] && \
+    feh --bg-fill "$HOME/Pictures/wallpaper.jpg" &
+
+# Status bar
+if command -v polybar >/dev/null; then
+    "$HOME/.config/polybar/launch.sh"
+fi
+
+# Cursor
+command -v xsetroot >/dev/null && xsetroot -cursor_name left_ptr
+
+# Monitors: falls back gracefully on a single-monitor setup
+bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+
+# --- Core behavior ---
+bspc config border_width         2
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config single_monocle       false
+bspc config focus_follows_pointer false
+bspc config pointer_follows_focus false
+bspc config click_to_focus        button1
+bspc config pointer_modifier      mod4
+bspc config pointer_action1       move
+bspc config pointer_action2       resize_side
+bspc config pointer_action3       resize_corner
+
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+bspc config merge_overlapping_monitors true
+
+# --- Colors ---
+bspc config normal_border_color   "#313244"
+bspc config active_border_color   "#585b70"
+bspc config focused_border_color  "#89b4fa"
+bspc config presel_feedback_color "#89b4fa"
+
+# --- Per-application rules ---
+bspc rule -a Zathura state=tiled
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kmag state=floating
+bspc rule -a Sxiv state=floating
+bspc rule -a "Pavucontrol" state=floating
+bspc rule -a "Nm-connection-editor" state=floating
+bspc rule -a "*:feh" state=floating
+bspc rule -a Rofi state=floating

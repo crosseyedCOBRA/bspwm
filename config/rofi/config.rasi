@@ -1,0 +1,15 @@
+configuration {
+    modi:                       "drun,window,run,power-menu:~/.config/rofi/scripts/powermenu.sh";
+    show-icons:                 true;
+    icon-theme:                 "Papirus";
+    display-drun:               "Apps";
+    display-window:             "Windows";
+    display-run:                "Run";
+    drun-display-format:        "{name}";
+    font:                       "JetBrainsMono Nerd Font 11";
+    disable-history:            false;
+    hide-scrollbar:             true;
+    sidebar-mode:               false;
+}
+
+@theme "theme"

@@ -1,0 +1,135 @@
+#
+# bspwm sxhkd config
+#
+
+# --- Programs ---
+super + Return
+	alacritty
+
+super + shift + Return
+	rofi -show drun -show-icons
+
+super + d
+	rofi -show drun -show-icons
+
+super + Tab
+	rofi -show window
+
+super + shift + e
+	rofi -show power-menu -modi power-menu:"$HOME/.config/rofi/scripts/powermenu.sh"
+
+super + shift + q
+	bspc node -c
+
+super + shift + BackSpace
+	bspc quit
+
+# reload sxhkd config
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# lock screen
+super + l
+	loginctl lock-session
+
+# screenshots (needs maim + xclip)
+Print
+	maim ~/Pictures/screenshots/"$(date +%Y-%m-%d_%H-%M-%S).png"
+
+shift + Print
+	maim -s ~/Pictures/screenshots/"$(date +%Y-%m-%d_%H-%M-%S).png"
+
+super + Print
+	maim -s | xclip -selection clipboard -t image/png
+
+# --- Media / brightness keys ---
+XF86AudioRaiseVolume
+	pamixer -i 5
+
+XF86AudioLowerVolume
+	pamixer -d 5
+
+XF86AudioMute
+	pamixer -t
+
+XF86AudioPlay
+	playerctl play-pause
+
+XF86AudioNext
+	playerctl next
+
+XF86AudioPrev
+	playerctl previous
+
+XF86MonBrightnessUp
+	brightnessctl set +5%
+
+XF86MonBrightnessDown
+	brightnessctl set 5%-
+
+# --- bspwm: quit/restart ---
+super + alt + r
+	bspc wm -r
+
+# --- State / layout ---
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+super + shift + space
+	bspc node -t "~"{floating,tiled}
+
+super + ctrl + m
+	bspc desktop -l next
+
+# --- Focus / swap ---
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+super + {_,shift + }o
+	bspc {desktop,node} -f {next,prev}
+
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+super + {_,shift + }bracket{left,right}
+	bspc {desktop -f,node -d} {prev,next}.local
+
+# --- Preselect ---
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+super + ctrl + space
+	bspc node -p cancel
+
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# --- Move / resize (floating) ---
+super + alt + {h,j,k,l}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+super + alt + shift + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# --- Send to desktop / monitor ---
+super + shift + {1-9,0}
+	bspc node -d '^{1-9,10}' --follow
+
+super + {1-9,0}
+	bspc desktop -f '^{1-9,10}'
+
+super + {_,shift + }m
+	bspc {desktop -f,node -d} last
+
+super + {comma,period}
+	bspc node -m {prev,next} --follow
+
+# --- Marks / misc ---
+super + ctrl + shift + {h,j,k,l}
+	bspc node -f @{west,south,north,east}
+
+super + shift + s
+	bspc node -f @/

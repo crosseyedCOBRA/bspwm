@@ -1,0 +1,37 @@
+# Core WM stack
+bspwm
+sxhkd
+
+# X essentials (archinstall's minimal profile may not pull all of these)
+xorg-server
+xorg-xinit
+xorg-xrandr
+xorg-xrdb
+xorg-xsetroot
+xorg-xprop
+
+# Compositor / bar / launcher / notifications
+picom
+polybar
+rofi
+dunst
+
+# Terminal
+alacritty
+
+# Fonts / icons
+ttf-jetbrains-mono-nerd
+papirus-icon-theme
+
+# Utilities used by sxhkdrc / bspwmrc
+feh              # wallpaper
+maim             # screenshots
+xclip            # clipboard for screenshots
+playerctl        # media keys
+pamixer          # volume keys
+brightnessctl    # brightness keys
+network-manager-applet  # nm-applet tray icon
+pavucontrol      # audio GUI (optional, referenced by float rule)
+
+# AUR (install with an AUR helper, e.g. yay/paru)
+# jetbrains-mono-nerd-font (if not on the official repos for your mirror)

@@ -1,0 +1,8 @@
+#!/bin/sh
+# ~/.xinitrc -- used when starting X with `startx` (skip this if you're using a display manager,
+# and instead select "bspwm" from its session list).
+
+userresources=$HOME/.Xresources
+[ -f "$userresources" ] && xrdb -merge "$userresources"
+
+exec bspwm

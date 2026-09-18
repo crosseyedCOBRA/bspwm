@@ -1,0 +1,81 @@
+/*
+ * Catppuccin Mocha-based rofi theme
+ * Matches the alacritty/polybar/bspwm colors used elsewhere in this repo.
+ */
+
+* {
+    bg0:      #1e1e2eee;
+    bg1:      #313244;
+    bg2:      #45475a;
+    fg0:      #cdd6f4;
+    fg1:      #a6adc8;
+    accent:   #89b4fa;
+    urgent:   #f38ba8;
+
+    background-color: transparent;
+    text-color:       @fg0;
+}
+
+window {
+    width:            32%;
+    background-color: @bg0;
+    border:           2px;
+    border-color:     @accent;
+    border-radius:    12px;
+    padding:          16px;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+    spacing:  12px;
+}
+
+inputbar {
+    background-color: @bg1;
+    border-radius:    8px;
+    padding:          10px 12px;
+    children:         [ prompt, entry ];
+    spacing:          8px;
+}
+
+prompt {
+    text-color: @accent;
+    font:       "JetBrainsMono Nerd Font Bold 11";
+}
+
+entry {
+    placeholder:       "Search...";
+    placeholder-color: @fg1;
+}
+
+listview {
+    lines:      8;
+    columns:    1;
+    spacing:    4px;
+    fixed-height: false;
+    scrollbar:  false;
+}
+
+element {
+    padding:       8px 10px;
+    border-radius: 8px;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @fg0;
+}
+
+element selected.normal {
+    background-color: @bg2;
+    text-color:       @accent;
+}
+
+element-icon {
+    size: 1.1em;
+    vertical-align: 0.5;
+}
+
+element-text {
+    vertical-align: 0.5;
+}
